@@ -17,7 +17,7 @@ func main() {
 	r := gin.Default()
 
 	config := cors.DefaultConfig()
-	config.AllowOrigins = []string{"http://127.0.0.1:8080"}
+	config.AllowOrigins = []string{"http://121.41.120.238:8080","http://121.41.120.238:5500"}
 	r.Use(cors.New(config))
 	
 	r.Use(static.Serve("/", static.LocalFile("./static", false)))
