@@ -69,8 +69,8 @@ func commentAdd(db *sql.DB, pid int) {
 func DeleteMsg(db *sql.DB, id string) error {
 	sqlStr := "select movie,type,username from info where id = ?"
 	var (
-		IMDB  string
-		_type int
+		IMDB     string
+		_type    int
 		username string
 	)
 	err := db.QueryRow(sqlStr, id).Scan(&IMDB, &_type, &username)
@@ -121,15 +121,15 @@ func DeleteMsg(db *sql.DB, id string) error {
 		}
 		_, err = db.Exec(sqlStr, essayNum, moviePoint, num, IMDB)
 		sqlStr = "select commentNum from user_detail where ID = ?"
-		userID,_ := GetId(db,username)
-		err = db.QueryRow(sqlStr,userID).Scan(&num)
+		userID, _ := GetId(db, username)
+		err = db.QueryRow(sqlStr, userID).Scan(&num)
 		tool.CheckErr(err)
 		if err != nil {
 			return err
 		}
 		num--
 		sqlStr = "update user_detail set commentNum = ? where ID = ?"
-		_,err = db.Exec(sqlStr,num,userID)
+		_, err = db.Exec(sqlStr, num, userID)
 		tool.CheckErr(err)
 		if err != nil {
 			return err
@@ -767,8 +767,8 @@ func DeleteUT(db *sql.DB, user string, username string) error {
 }
 
 func JudgeEssay(db *sql.DB, username string, movie string) bool {
-	sqlStr := "select movie from info where username = ?"
-	rows, err := db.Query(sqlStr, username)
+	sqlStr := "select movie from info where username = ? && type = ?"
+	rows, err := db.Query(sqlStr, username, 2)
 	if err == sql.ErrNoRows {
 		return true
 	}
