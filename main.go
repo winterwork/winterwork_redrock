@@ -15,7 +15,6 @@ func main() {
 
 	r := gin.Default()
 
-	// 部署前端静态网站
 	r.Use(static.Serve("/", static.LocalFile("./static", false)))
 
 	r.StaticFS("/image", http.Dir("./image"))
@@ -24,6 +23,13 @@ func main() {
 
 	registerRouter(r)
 
+	go func() {
+		err := r.Run(":5500")
+		if err != nil {
+			fmt.Println(err)
+		}
+	}()
+	
 	err := r.Run()
 	if err != nil {
 		fmt.Println(err)
