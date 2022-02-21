@@ -205,8 +205,8 @@ const essays = document.querySelector('.essays')
 
 //获得留言
 let essayform = new FormData();
-essayform.append('id', idgetres.info)
-const essay = await fetch('http://121.41.120.238:8080/message/msg', {
+essayform.append('username', username)
+const essay = await fetch('http://121.41.120.238:8080/message/getByUser', {
     method: 'POST',
     body: essayform
 })
@@ -216,55 +216,58 @@ console.log(esres.information)
 function getLocalTime(nS) {
     return new Date(parseInt(nS) * 1000).toLocaleString().replace(/:\d{1,2}$/, ' ');
 } //转时间
-
+let num2 = 0;
 for (let i = 0; i < esres.information.length; i++) {
-    // let cb = document.createElement('div');
-    let line = document.createElement('hr');
-    line.SIZE = '1';
-    // console.log(line);
-    // cb.className = 'cb';
-    line.noshade = "noshade"
-    line.color = "#dddddd"
-    line.size = '1'
-
-    // essays.appendChild(cb)
-    essays.appendChild(line)
-    console.log(esres.information[i].msg); //改成essay，内容
-    console.log(esres.information[i].movie);
-    console.log(esres.information[i].type); //类型
-    console.log(esres.information[i].point); //评分
-    console.log(esres.information[i].time); //时间
-    let ttdate = new FormData();
-    ttdate.append('IMDB', esres.information[i].movie)
-    const search = await fetch('http://121.41.120.238:8080/movie/findByIMDB', {
-        method: 'POST',
-        body: ttdate
-    })
-    const seres = await search.json()
-    console.log(seres.information[0].name) //电影名
-    const box = document.createElement('div'); //big盒子
-    box.className = 'box'
-    const movie = document.createElement('span'); //电影名
-    movie.innerHTML = '《' + seres.information[0].name + '》';
-    movie.id = 'movie'
-    const time = document.createElement('div') //时间
-    time.id = 'time'
-    time.innerHTML = getLocalTime(esres.information[i].time);
-    const point = document.createElement('span'); //评分
-    point.id = 'point'
-    const pointval = document.createElement('span');
-    point.id = 'point'
-    pointval.id = 'pointval'
-    point.innerHTML = '评分：';
-    pointval.innerHTML = esres.information[i].point;
-    point.appendChild(pointval)
-    const essay = document.createElement('div');
-    essay.id = 'essay'
-    essay.innerHTML = esres.information[i].msg;
-    box.appendChild(time)
-    box.appendChild(movie)
-    box.appendChild(point)
-    box.appendChild(essay)
-    essays.appendChild(box)
-
+    console.log(esres.information[i].type)
+    if (esres.information[i].type == '2') {
+        num2++;
+        let line = document.createElement('hr');
+        line.SIZE = '1';
+        // console.log(line);
+        // cb.className = 'cb';
+        line.noshade = "noshade"
+        line.color = "#dddddd"
+        line.size = '1'
+        essays.appendChild(line)
+        console.log(esres.information[i].essay); //改成essay，内容
+        console.log(esres.information[i].type); //类型
+        console.log(esres.information[i].point); //评分
+        console.log(esres.information[i].movie); //评分
+        console.log(esres.information[i].time); //时间
+        let ttdate = new FormData();
+        ttdate.append('IMDB', esres.information[i].movie)
+        const search = await fetch('http://121.41.120.238:8080/movie/findByIMDB', {
+            method: 'POST',
+            body: ttdate
+        })
+        const seres = await search.json()
+        console.log(seres)
+        const box = document.createElement('div'); //big盒子
+        box.className = 'box'
+        const movie = document.createElement('span'); //电影名
+        movie.innerHTML = '《' + seres.information[0].name + '》';
+        movie.id = 'movie'
+            // const time = document.createElement('div') //时间
+            // time.id = 'time'
+            // time.innerHTML = getLocalTime(esres.information[i].time);
+        const point = document.createElement('span'); //评分
+        point.id = 'point'
+        const pointval = document.createElement('span');
+        point.id = 'point'
+        pointval.id = 'pointval'
+        point.innerHTML = '评分：';
+        pointval.innerHTML = esres.information[i].point;
+        point.appendChild(pointval)
+        const essay = document.createElement('div');
+        essay.id = 'essay'
+        essay.innerHTML = esres.information[i].essay;
+        // box.appendChild(time)
+        box.appendChild(movie)
+        box.appendChild(point)
+        box.appendChild(essay)
+        essays.appendChild(box)
+    }
 }
+const numbox = document.querySelector('.num');
+console.log(numbox)
+numbox.innerHTML = '一共' + num2 + '条'

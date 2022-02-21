@@ -184,12 +184,25 @@ a:hover {
     margin-top: 50px;
     margin-right: 300px;
     float: right;
-    width: 200px;
+    width: 220px;
     height: 400px;
-    border-left: 1px solid rgb(207, 207, 207);
+    /* border-left: 1px solid rgb(207, 207, 207); */
     /* background-color: aqua; */
 }
 
 .ranklist hr {
     margin-top: 10px;
+}
+
+.ranklist div span {
+    margin-left: 10px;
+}
+
+#title {
+    color: rgb(34, 119, 170);
+}
+
+#title:hover {
+    color: aliceblue;
+    background-color: rgb(34, 119, 170);
 }

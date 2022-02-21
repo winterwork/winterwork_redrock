@@ -27,7 +27,6 @@ for (let i = 0; i < cmres.information.length; i++) {
         line.noshade = "noshade"
         line.color = "#dddddd"
         line.size = '1'
-            // console.log(cb);
         comments.appendChild(line);
         comments.appendChild(cb);
         const un = document.createElement('span');
@@ -61,11 +60,12 @@ for (let i = 0; i < cmres.information.length; i++) {
 }
 many.innerHTML = '(全部 ' + long + ' 条)'
 
-
+let flag = 0;
 for (let i = cmres.information.length - 1; i >= 0; i--) {
     // console.log(cmres.information[i]);
     if (cmres.information[i].type == '2') {
         //创建盒子
+        flag++;
         long++;
         let cb = document.createElement('div');
         let line = document.createElement('hr');
@@ -107,3 +107,5 @@ for (let i = cmres.information.length - 1; i >= 0; i--) {
 // window.open("search.html", "newwindow", "height=100, width=400, toolbar=no, menubar=no, scrollbars=no, resizable=no, location=no, status=no")
 
 //评分
+
+mcl.innerHTML = '（全部' + flag + '条）'

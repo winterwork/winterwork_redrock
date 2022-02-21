@@ -176,7 +176,8 @@ console.log(pointres.information[0])
 pn.innerHTML = pointres.information[0].score
 
 const person = document.getElementById('person')
-person.innerHTML = pointres.information[0].comment_num + '人评价'
+person.innerHTML = pointres.information[0].essay_num + '人评价'
+console.log(pointres.information[0].essay_num)
 const pers = document.querySelectorAll('#per')
 pers[0].innerHTML = pointres.information[0].num_5 + '人'
 pers[1].innerHTML = pointres.information[0].num_4 + '人'

@@ -48,7 +48,7 @@ send.addEventListener('click', async() => {
         location.reload()
     }
     if (essayres.status === false) {
-        alert('失败了，你看看你登录了没')
+        alert('失败了，没有登录或是已经发送过影评')
         location.reload()
     }
 })
@@ -74,7 +74,7 @@ send1.addEventListener('click', async() => {
         location.reload()
     }
     if (smres.status === false) {
-        alert('失败了，你看看你登录了没')
+        alert('失败了，没有登录或是已经发送过影评')
         location.reload()
     }
 })
