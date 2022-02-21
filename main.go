@@ -18,7 +18,7 @@ func main() {
 	
 	r.Use(middleware.Cors())
 
-	r.Use(static.Serve("/", static.LocalFile("./static", false)))
+	r.Use(static.Serve("/", static.LocalFile("./static/HTML", false)))
 
 	r.StaticFS("/image", http.Dir("./image"))
 
