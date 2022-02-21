@@ -117,11 +117,18 @@ func GetHP(db *sql.DB, ID int) (string, error) {
 }
 
 func GetDT(db *sql.DB, id int) (Struct.UserDetail, error) {
-	sqlStr := "select mnum, unum, attwho, thumbnum, id, moviedone, moviewant, introduce, commentnum from user_detail where ID = ?"
+	sqlStr := "select mnum, unum, attwho, thumbnum, id, moviedone, moviewant, introduce, commentnum,cap from user_detail where ID = ?"
 	var u Struct.UserDetail
-	err := db.QueryRow(sqlStr, id).Scan(&u.MNum, &u.UNum, &u.AttWho, &u.ThumbNum, &u.ID, &u.DMovie, &u.WMovie, &u.Introduce, &u.CommentNum)
+	err := db.QueryRow(sqlStr, id).Scan(&u.MNum, &u.UNum, &u.AttWho, &u.ThumbNum, &u.ID, &u.DMovie, &u.WMovie, &u.Introduce, &u.CommentNum,&u.Cap)
 	if err != nil {
-		return u,err
+		return u, err
 	}
-	return u,nil
+	return u, nil
+}
+
+func AddCap(db *sql.DB, url string, username string) error {
+	id,_ := GetId(db,username)
+	sqlStr := "update user_detail set cap = ? where ID = ?"
+	_,err := db.Exec(sqlStr,url,id)
+	return err
 }

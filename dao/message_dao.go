@@ -67,9 +67,97 @@ func commentAdd(db *sql.DB, pid int) {
 
 // DeleteMsg 删除留言
 func DeleteMsg(db *sql.DB, id string) error {
-	sqlStr := "delete from info where id = ?"
+	sqlStr := "select movie,type,username from info where id = ?"
+	var (
+		IMDB  string
+		_type int
+		username string
+	)
+	err := db.QueryRow(sqlStr, id).Scan(&IMDB, &_type, &username)
+	if _type == 2 {
+		var (
+			point      int
+			moviePoint float32
+			essayNum   int
+			num        int
+		)
+		sqlStr = "select point from info where id = ?"
+		err = db.QueryRow(sqlStr, id).Scan(&point)
+		tool.CheckErr(err)
+		if err != nil {
+			return err
+		}
+		switch point {
+		case 1:
+			sqlStr = "select essay_Num,score,num_1 from movie_liker where IMDb = ?"
+		case 2:
+			sqlStr = "select essay_Num,score,num_2 from movie_liker where IMDb = ?"
+		case 3:
+			sqlStr = "select essay_Num,score,num_3 from movie_liker where IMDb = ?"
+		case 4:
+			sqlStr = "select essay_Num,score,num_4 from movie_liker where IMDb = ?"
+		case 5:
+			sqlStr = "select essay_Num,score,num_5 from movie_liker where IMDb = ?"
+		}
+		err = db.QueryRow(sqlStr, IMDB).Scan(&essayNum, &moviePoint, &num)
+		tool.CheckErr(err)
+		if err != nil {
+			return err
+		}
+		moviePoint = (moviePoint*float32(essayNum+1) - float32(point)*2) / float32(essayNum)
+		essayNum--
+		num--
+		switch point {
+		case 1:
+			sqlStr = "update movie_liker set essay_Num = ?,score = ?,num_1 = ? where IMDb = ?"
+		case 2:
+			sqlStr = "update movie_liker set essay_Num = ?,score = ?,num_2 = ? where IMDb = ?"
+		case 3:
+			sqlStr = "update movie_liker set essay_Num = ?,score = ?,num_3 = ? where IMDb = ?"
+		case 4:
+			sqlStr = "update movie_liker set essay_Num = ?,score = ?,num_4 = ? where IMDb = ?"
+		case 5:
+			sqlStr = "update movie_liker set essay_Num = ?,score = ?,num_5 = ? where IMDb = ?"
+		}
+		_, err = db.Exec(sqlStr, essayNum, moviePoint, num, IMDB)
+		sqlStr = "select commentNum from user_detail where ID = ?"
+		userID,_ := GetId(db,username)
+		err = db.QueryRow(sqlStr,userID).Scan(&num)
+		tool.CheckErr(err)
+		if err != nil {
+			return err
+		}
+		num--
+		sqlStr = "update user_detail set commentNum = ? where ID = ?"
+		_,err = db.Exec(sqlStr,num,userID)
+		tool.CheckErr(err)
+		if err != nil {
+			return err
+		}
+	}
+	tool.CheckErr(err)
+	if err != nil {
+		return err
+	}
+	if _type == 1 {
+		sqlStr = "select commentNum from movie_liker where IMDb = ?"
+		var num int
+		err = db.QueryRow(sqlStr, IMDB).Scan(&num)
+		tool.CheckErr(err)
+		if err != nil {
+			return err
+		}
+		num--
+		sqlStr = "update movie_liker set commentNum = ? where IMDb = ?"
+		_, err = db.Exec(sqlStr, num, IMDB)
+		tool.CheckErr(err)
+		if err != nil {
+			return err
+		}
+	}
+	sqlStr = "delete from info where id = ?"
 	idNum, _ := strconv.Atoi(id)
-	_, err := db.Exec(sqlStr, idNum)
+	_, err = db.Exec(sqlStr, idNum)
 	tool.CheckErr(err)
 	if err != nil {
 		return err
@@ -550,7 +638,7 @@ func DeletePoint(db *sql.DB, username string, movie string, _type string) error 
 	case "D":
 		sqlStr = "update movie_liker set num_done = ? where IMDb = ?"
 	}
-	_, err = db.Exec(sqlStr, num)
+	_, err = db.Exec(sqlStr, num, movie)
 	tool.CheckErr(err)
 	return err
 }
@@ -676,4 +764,38 @@ func DeleteUT(db *sql.DB, user string, username string) error {
 	_, err = db.Exec(sqlStr, num, ID)
 	tool.CheckErr(err)
 	return err
+}
+
+func JudgeEssay(db *sql.DB, username string, movie string) bool {
+	sqlStr := "select movie from info where username = ?"
+	rows, err := db.Query(sqlStr, username)
+	if err == sql.ErrNoRows {
+		return true
+	}
+	var u string
+	for rows.Next() {
+		err = rows.Scan(&u)
+		if u == movie {
+			return false
+		}
+	}
+	return true
+}
+
+func ChangeE(db *sql.DB, username string, movie string, essay string, point string) (int, error) {
+	sqlStr := "select id from info where username = ? && movie = ? && type = ?"
+	var id int
+	err := db.QueryRow(sqlStr, username, movie, 2).Scan(&id)
+	tool.CheckErr(err)
+	if err != nil {
+		return 0, errors.New("noMessage")
+	}
+	err = DeleteMsg(db, strconv.Itoa(id))
+	tool.CheckErr(err)
+	if err != nil {
+		return 0, err
+	}
+	pointNum, _ := strconv.Atoi(point)
+	id, err = InsertEssay(db, username, essay, movie, pointNum)
+	return id, err
 }

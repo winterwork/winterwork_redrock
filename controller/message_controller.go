@@ -27,6 +27,7 @@ func MessageRouter(r *gin.Engine) {
 		engine.POST("/deleteThumb", middleware.Check, deleteThumb)
 		engine.POST("/thumbUser", middleware.Check, thumbUser)
 		engine.POST("/deleteUT", middleware.Check, deleteUT)
+		engine.POST("/changeE", middleware.Check, changeE)
 	}
 }
 
@@ -152,7 +153,7 @@ func deleteMsg(c *gin.Context) {
 	tool.PrintInfo(c, "删除成功！", true)
 }
 
-// sendEssay 发送留言
+// sendEssay 发送电影评论
 func sendEssay(c *gin.Context) {
 	msg := c.PostForm("essay")
 	claims, _ := c.Get("claims")
@@ -164,7 +165,9 @@ func sendEssay(c *gin.Context) {
 	id, err := service.SendMsg(db, username, msg, 0, 2, movie, pointNum)
 	tool.CheckErr(err)
 	if err != nil {
-		tool.PrintInfo(c, "", false)
+		if err.Error() == "done" {
+			tool.PrintInfo(c, "你已经评论过了", false)
+		}
 		return
 	}
 	tool.PrintInfo(c, strconv.Itoa(id), true)
@@ -207,7 +210,7 @@ func deleteThumb(c *gin.Context) {
 	tool.PrintInfo(c, "已成功取消点赞！", true)
 }
 
-// deletePoint 删除原有的评分或想看/看过
+// deletePoint 删除原有的想看/看过
 func deletePoint(c *gin.Context) {
 	claims, _ := c.Get("claims")
 	username := claims.(*tool.CustomClaim).Name
@@ -257,4 +260,22 @@ func deleteUT(c *gin.Context) {
 		return
 	}
 	tool.PrintInfo(c, "好力！", true)
+}
+
+func changeE(c *gin.Context) {
+	claims, _ := c.Get("claims")
+	username := claims.(*tool.CustomClaim).Name
+	movie := c.PostForm("movie")
+	essay := c.PostForm("essay")
+	point := c.PostForm("point")
+	db := tool.GetDb()
+	id, err := service.ChangeE(db, username, movie, essay, point)
+	tool.CheckErr(err)
+	if err != nil {
+		if err.Error() == "noMessage" {
+			tool.PrintInfo(c, "你还没有评论", false)
+			return
+		}
+	}
+	tool.PrintInfo(c, strconv.Itoa(id), true)
 }

@@ -32,3 +32,4 @@ func userDelete(c *gin.Context) {
 	tool.PrintInfo(c, "注销成功！", true)
 }
 
+

@@ -7,7 +7,9 @@ import (
 	"douban/tool"
 	"fmt"
 	"github.com/gin-gonic/gin"
+	"path"
 	"strconv"
+	"strings"
 )
 
 // UserRouter 注册路由
@@ -22,6 +24,7 @@ func UserRouter(r *gin.Engine) {
 		engine1.POST("/check", middleware.Check, done)
 		engine1.POST("/getDetail", getDT)
 		engine1.POST("/getID", getID)
+		engine1.POST("/changeCap", middleware.Check, changeCap)
 	}
 	engine2 := r.Group("/homepage")
 	{
@@ -194,4 +197,39 @@ func getID(c *gin.Context) {
 		return
 	}
 	tool.PrintInfo(c, strconv.Itoa(id), true)
+}
+
+func changeCap(c *gin.Context) {
+	claims, _ := c.Get("claims")
+	username := claims.(*tool.CustomClaim).Name
+	file, err := c.FormFile("cap")
+	tool.CheckErr(err)
+	if err != nil {
+		tool.PrintInfo(c, err.Error(), false)
+		return
+	}
+	fileExt := path.Ext(file.Filename)
+	if fileExt != ".jpg" {
+		tool.PrintInfo(c, "请传输格式为jpg的图片", false)
+		return
+	}
+	var build strings.Builder
+	build.WriteString(username)
+	build.WriteString(".jpg")
+	file.Filename = build.String()
+	filepath := "./image/" + file.Filename
+	err = c.SaveUploadedFile(file, filepath)
+	tool.CheckErr(err)
+	if err != nil {
+		tool.PrintInfo(c, err.Error(), false)
+		return
+	}
+	db := tool.GetDb()
+	url := "http://" + c.Request.Host + "/image/" + file.Filename
+	err = service.AddCap(db, url, username)
+	if err != nil {
+		tool.PrintInfo(c, err.Error(), false)
+		return
+	}
+	tool.PrintInfo(c, "成功导入", true)
 }

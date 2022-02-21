@@ -70,3 +70,9 @@ func GetDT(db *sql.DB, id int) (Struct.UserDetail, error) {
 	u, err := dao.GetDT(db, id)
 	return u, err
 }
+
+func AddCap(db *sql.DB,url string,username string) error {
+	err := dao.AddCap(db,url,username)
+	tool.CheckErr(err)
+	return err
+}

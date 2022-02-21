@@ -5,13 +5,26 @@ import (
 	"douban/middleware"
 	"douban/tool"
 	"fmt"
+	"github.com/gin-contrib/cors"
+	"github.com/gin-contrib/static"
 	"github.com/gin-gonic/gin"
+	"net/http"
 )
 
 func main() {
 	tool.OpenDb()
 
 	r := gin.Default()
+
+	// 处理跨域请求
+	config := cors.DefaultConfig()
+	config.AllowOrigins = []string{"http://127.0.0.1:8080"}
+	r.Use(cors.New(config))
+
+	// 部署前端静态网站
+	r.Use(static.Serve("/", static.LocalFile("./static", false)))
+
+	r.StaticFS("/image",http.Dir("./image"))
 
 	r.Use(middleware.Cors())
 

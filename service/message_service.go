@@ -27,8 +27,12 @@ func SendMsg(db *sql.DB, username string, msg string, pid int, _type int, movie 
 		id, err := dao.InsertMsg(db, username, msg, pid, movie)
 		return id, err
 	} else {
-		id, err := dao.InsertEssay(db, username, msg, movie, point)
-		return id, err
+		flag := dao.JudgeEssay(db, username, movie)
+		if flag {
+			id, err := dao.InsertEssay(db, username, msg, movie, point)
+			return id, err
+		}
+		return 0, errors.New("done")
 	}
 }
 
@@ -97,4 +101,9 @@ func ThumbUser(db *sql.DB, user string, username string) error {
 func DeleteUT(db *sql.DB, user string, username string) error {
 	err := dao.DeleteUT(db, user, username)
 	return err
+}
+
+func ChangeE(db *sql.DB, username string, movie string, essay string, point string) (int, error) {
+	id, err := dao.ChangeE(db, username, movie, essay, point)
+	return id, err
 }

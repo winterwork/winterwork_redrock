@@ -16,5 +16,6 @@ type UserDetail struct {
 	CommentNum int
 	WMovie     string
 	DMovie     string
-	Introduce string
+	Introduce  string
+	Cap        string
 }
