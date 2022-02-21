@@ -16,12 +16,6 @@ func main() {
 
 	r := gin.Default()
 
-	// 处理跨域请求
-	config := cors.DefaultConfig()
-	config.AllowOrigins = []string{"http://127.0.0.1:8080"}
-	r.Use(cors.New(config))
-
-	// 部署前端静态网站
 	r.Use(static.Serve("/", static.LocalFile("./static", false)))
 
 	r.StaticFS("/image",http.Dir("./image"))
