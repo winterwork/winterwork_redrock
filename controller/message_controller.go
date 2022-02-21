@@ -28,6 +28,7 @@ func MessageRouter(r *gin.Engine) {
 		engine.POST("/thumbUser", middleware.Check, thumbUser)
 		engine.POST("/deleteUT", middleware.Check, deleteUT)
 		engine.POST("/changeE", middleware.Check, changeE)
+		engine.POST("/getByUser", getByUser)
 	}
 }
 
@@ -274,8 +275,21 @@ func changeE(c *gin.Context) {
 	if err != nil {
 		if err.Error() == "noMessage" {
 			tool.PrintInfo(c, "你还没有评论", false)
-			return
 		}
+		return
 	}
 	tool.PrintInfo(c, strconv.Itoa(id), true)
+}
+
+func getByUser(c *gin.Context) {
+	username := c.PostForm("username")
+	db := tool.GetDb()
+	u, err := service.GetByUser(db, username)
+	if err != nil {
+		if err.Error() == "noMessage" {
+			tool.PrintInfo(c, "该用户还没有发言", false)
+		}
+		return
+	}
+	tool.PrintMsg(c, u)
 }

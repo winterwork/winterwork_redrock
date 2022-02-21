@@ -210,6 +210,7 @@ func FindByMIMDB(db *sql.DB, IMDB string) ([]string, error) {
 	}
 	var MemberIMDB string
 	IMDBList := make([]string, 0)
+	defer CloseDb(rows)
 	for rows.Next() {
 		err = rows.Scan(&MemberIMDB)
 		tool.CheckErr(err)

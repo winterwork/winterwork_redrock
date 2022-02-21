@@ -107,3 +107,8 @@ func ChangeE(db *sql.DB, username string, movie string, essay string, point stri
 	id, err := dao.ChangeE(db, username, movie, essay, point)
 	return id, err
 }
+
+func GetByUser(db *sql.DB, username string) ([]Struct.Info, error) {
+	u, err := dao.GetByUser(db, username)
+	return u, err
+}

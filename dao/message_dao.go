@@ -169,6 +169,7 @@ func DeleteMsg(db *sql.DB, id string) error {
 	if err == sql.ErrNoRows {
 		return nil
 	}
+	defer CloseDb(rows)
 	for rows.Next() {
 		err = rows.Scan(&sid)
 		tool.CheckErr(err)
@@ -773,6 +774,7 @@ func JudgeEssay(db *sql.DB, username string, movie string) bool {
 		return true
 	}
 	var u string
+	defer CloseDb(rows)
 	for rows.Next() {
 		err = rows.Scan(&u)
 		if u == movie {
@@ -798,4 +800,24 @@ func ChangeE(db *sql.DB, username string, movie string, essay string, point stri
 	pointNum, _ := strconv.Atoi(point)
 	id, err = InsertEssay(db, username, essay, movie, pointNum)
 	return id, err
+}
+
+func GetByUser(db *sql.DB, username string) ([]Struct.Info, error) {
+	sqlStr := "select id, username, msg, pid, commentNum, time, thumbs_up, liker, movie, point, essay, type from info where username = ?"
+	rows, err := db.Query(sqlStr, username)
+	if err == sql.ErrNoRows {
+		return nil, errors.New("noMessage")
+	}
+	u := make([]Struct.Info, 0)
+	var u0 Struct.Info
+	defer CloseDb(rows)
+	for rows.Next() {
+		err = rows.Scan(&u0.Id, &u0.Username, &u0.Msg, &u0.Pid, &u0.CommentNum, &u0.Time, &u0.Thumb, &u0.Liker, &u0.Movie, &u0.Point, &u0.Essay, &u0.Type)
+		tool.CheckErr(err)
+		if err != nil {
+			return nil, err
+		}
+		u = append(u, u0)
+	}
+	return u, nil
 }
