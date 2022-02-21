@@ -15,16 +15,12 @@ func main() {
 	tool.OpenDb()
 
 	r := gin.Default()
-
-	config := cors.DefaultConfig()
-	config.AllowOrigins = []string{"http://121.41.120.238:8080","http://121.41.120.238:5500"}
-	r.Use(cors.New(config))
 	
+	r.Use(middleware.Cors())
+
 	r.Use(static.Serve("/", static.LocalFile("./static", false)))
 
 	r.StaticFS("/image", http.Dir("./image"))
-
-	r.Use(middleware.Cors())
 
 	registerRouter(r)
 
