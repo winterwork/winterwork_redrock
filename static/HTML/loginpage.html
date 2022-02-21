@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>豆瓣登录/注册</title>
+    <link rel="stylesheet" type="text/css" href="/CSS/Loginpage.css">
+</head>
+<style>
+
+</style>
+
+<body>
+    <div class="head">
+        <a href='homepage.html'><img class='p1' src="/images/Loginpage/1.png"></a>
+        <img class='p2' src='/images/Loginpage/2.png'>
+        <div class="a1">
+            <div class="b1">
+                <button class="c1" id="c1"><strong>登录</strong></button>
+                <button class="c2" id="c2"><strong>注册</strong></button>
+            </div>
+            <div class="b2">
+                <span class="line1" id="line1"></span>
+                <span class="line2" id="line2"></span>
+            </div>
+            <div class="bbc">
+                <div id='login' style="display: block">
+                    <div class="att">
+                        请仔细阅读 <a href="https://accounts.douban.com/passport/agreement" target="__blank"
+                            style="text-decoration: none; color: rgb(65,172,82);">豆瓣使用协议、豆瓣个人信息保护政策</a>
+                    </div>
+                    <input id='LoginUn' type="text" placeholder="用户名">
+                    <input id='LoginPsw' type="password" placeholder="密码">
+                    <button id="loginbtn""><strong>登录豆瓣</strong></button>
+                </div>
+                <div id='reg' style=" display: none">
+                        <div class="att1"></div>
+                        <input id='RegUn' type="text" placeholder="用户名">
+                        <input id='RegPsw' type="password" placeholder="密码">
+                        <input id='question' type="text" placeholder="密保问题">
+                        <input id='answer' type="text" placeholder="密保答案">
+                        <button id="regbtn"><strong>注册</strong></button>
+                </div>
+
+            </div>
+
+        </div>
+    </div>
+</body>
+<script src="/JS/Loginpage/tap.js"></script>
+<script src="/JS/Loginpage/reg.js"></script>
+<script src="/JS/Loginpage/login.js"></script>
+
+</html>

@@ -1,0 +1,227 @@
+* {
+    padding: 0%;
+    margin: 0;
+}
+
+.head {
+    background-color: rgb(237, 244, 237);
+    width: 100%;
+    height: 80px;
+}
+
+.p1 {
+    position: absolute;
+    left: 100px;
+    top: 10px;
+    height: 65px;
+}
+
+.p2 {
+    position: absolute;
+    height: 550px;
+    left: 300px;
+    top: 150px;
+}
+
+.a1 {
+    background-color: white;
+    position: relative;
+    left: 780px;
+    top: 200px;
+    width: 350px;
+    height: 470px;
+    border: 1px solid rgb(216, 216, 216)
+}
+
+.b1 {
+    position: relative;
+    width: 270px;
+    top: 50px;
+    margin: 0 auto;
+    display: flex;
+    justify-content: space-around;
+}
+
+.b2 {
+    position: relative;
+    top: 60px;
+    margin: 0 auto;
+    display: flex;
+    justify-content: space-around;
+    width: 280px;
+    height: 2.0px;
+}
+
+.b3 {
+    position: relative;
+    top: 100px;
+    width: 280px;
+    height: 400px;
+    margin: 0 auto;
+    display: none;
+}
+
+.b4 {
+    position: relative;
+    top: 100px;
+    width: 280px;
+    height: 400px;
+    margin: 0 auto;
+
+}
+
+.line1 {
+    background-color: black;
+    width: 140px;
+}
+
+.line2 {
+    background-color: rgb(212, 212, 212);
+    width: 140px;
+}
+
+.bbc {
+    position: relative;
+    top: 70px;
+    width: 300px;
+    margin: 0 auto;
+}
+
+button {
+    border: 0px;
+    background-color: white;
+}
+
+.c1 {
+    font-size: 20px;
+}
+
+.c2 {
+    font-size: 20px;
+    color: rgb(155, 155, 155);
+}
+
+#LoginUn {
+    position: relative;
+    width: 265px;
+    height: 20px;
+    padding: 10px;
+    border: 1px solid rgb(218, 218, 218);
+    outline: none;
+    border-radius: 3px;
+    display: block;
+    margin: 0 auto;
+
+}
+
+#LoginPsw {
+    position: relative;
+    width: 265px;
+    height: 20px;
+    padding: 10px;
+    border: 1px solid rgb(218, 218, 218);
+    outline: none;
+    border-radius: 3px;
+    margin: 0 auto;
+    display: block;
+    top: 10px;
+}
+
+#login {
+    position: relative;
+    margin: 0 auto;
+}
+
+.att {
+    position: relative;
+    height: 70px;
+    width: 280px;
+    font-size: 13px;
+    margin: 0 auto;
+    top: 5px;
+}
+
+#loginbtn {
+    position: relative;
+    width: 288px;
+    height: 40px;
+    border: 1px solid rgb(218, 218, 218);
+    background-color: rgb(65, 172, 82);
+    outline: none;
+    top: 20px;
+    border-radius: 3px;
+    margin: 0 auto;
+    display: block;
+    color: white;
+    font-size: 17px;
+}
+
+#RegUn {
+    position: relative;
+    width: 265px;
+    height: 20px;
+    padding: 10px;
+    border: 1px solid rgb(218, 218, 218);
+    outline: none;
+    border-radius: 3px;
+    display: block;
+    margin: 0 auto;
+}
+
+#RegPsw {
+    position: relative;
+    width: 265px;
+    height: 20px;
+    padding: 10px;
+    border: 1px solid rgb(218, 218, 218);
+    outline: none;
+    border-radius: 3px;
+    margin: 0 auto;
+    display: block;
+    top: 10px;
+}
+
+#question {
+    position: relative;
+    width: 265px;
+    height: 20px;
+    padding: 10px;
+    border: 1px solid rgb(218, 218, 218);
+    outline: none;
+    border-radius: 3px;
+    margin: 0 auto;
+    display: block;
+    top: 20px;
+}
+
+#answer {
+    position: relative;
+    width: 265px;
+    height: 20px;
+    padding: 10px;
+    border: 1px solid rgb(218, 218, 218);
+    outline: none;
+    border-radius: 3px;
+    margin: 0 auto;
+    display: block;
+    top: 30px;
+}
+
+.att1 {
+    height: 35px;
+}
+
+#regbtn {
+    position: relative;
+    width: 288px;
+    height: 40px;
+    border: 1px solid rgb(218, 218, 218);
+    background-color: rgb(65, 172, 82);
+    outline: none;
+    top: 40px;
+    border-radius: 3px;
+    margin: 0 auto;
+    display: block;
+    color: white;
+    font-size: 17px;
+}

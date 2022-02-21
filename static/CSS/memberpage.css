@@ -1,0 +1,247 @@
+* {
+    margin: 0px;
+    padding: 0px;
+}
+
+document,
+body {
+    width: 100%;
+}
+
+.a1 {
+    background-color: rgb(84, 86, 82);
+    height: 27px;
+    padding: 0%;
+}
+
+.b1 {
+    height: 27px;
+    width: 473px;
+    display: flex;
+    flex-wrap: nowrap;
+    justify-content: space-around;
+}
+
+.b2 {
+    height: 27px;
+    display: flex;
+    position: absolute;
+    right: 12px;
+    top: 1px;
+}
+
+.wl {
+    display: block;
+    text-decoration: none;
+    font-size: 12px;
+    position: relative;
+    /* padding-top: 0px; */
+    top: -5px;
+    padding: 10px;
+    color: rgb(218, 218, 218);
+}
+
+a:hover {
+    color: white;
+}
+
+#loginOrRegist {
+    display: block;
+}
+
+.ext {
+    position: relative;
+    background-color: white;
+    border: 1px solid rgb(202, 202, 202);
+    font-size: 13px;
+    height: 75px;
+    width: 80px;
+    float: right;
+    right: 20px;
+    z-index: 1;
+}
+
+.exts {
+    top: 10px;
+    position: relative;
+    padding: 5px;
+    margin: 0;
+    bottom: 10px;
+}
+
+#myhome:hover {
+    background-color: rgb(246, 246, 246);
+}
+
+#logout:hover {
+    background-color: rgb(246, 246, 246);
+}
+
+#myhome {
+    display: flex;
+    justify-content: center;
+}
+
+#logout {
+    display: flex;
+    justify-content: center;
+}
+
+a {
+    text-decoration: none;
+    color: black;
+}
+
+a:hover {
+    color: black;
+}
+
+.a2 {
+    height: 120px;
+    background-color: rgb(240, 243, 245);
+}
+
+.b3 {
+    position: relative;
+    left: 250px;
+    top: 20px;
+    width: 670px;
+    display: flex;
+    flex-direction: row;
+    flex-wrap: nowrap;
+    justify-content: space-between
+}
+
+#p1 {
+    position: relative;
+    /* top: 20px; */
+    height: 35px;
+    /* left: 200px; */
+    display: block;
+}
+
+.c1 {
+    position: relative;
+    display: flex;
+    flex-wrap: nowrap;
+}
+
+#search {
+    position: relative;
+    display: block;
+    width: 450px;
+    height: 10px;
+    outline: none;
+    padding: 10px;
+    border: 0px;
+    border-top-left-radius: 2px;
+    border-bottom-left-radius: 2px;
+    border-bottom: 2px solid rgb(210, 210, 210);
+}
+
+#searchBt {
+    height: 32px;
+    width: 35px;
+    outline: none;
+    border: 0px;
+    border-top-right-radius: 2px;
+    border-bottom-right-radius: 2px;
+    background-color: rgb(139, 149, 158);
+}
+
+#p2 {
+    position: relative;
+    height: 16px;
+    top: 1px;
+}
+
+.a3 {
+    width: 700px;
+    position: relative;
+    left: 250px;
+    top: 40px;
+    bottom: 10px;
+    height: 100px;
+    font-size: 30px;
+    font-weight: bold;
+    font-weight: 300px;
+}
+
+.a4 {
+    position: relative;
+    height: auto;
+    width: 700px;
+    display: grid;
+    left: 250px;
+    grid-template-columns: 150px 500px;
+}
+
+.cover {
+    height: auto;
+    /* background-color: yellow; */
+}
+
+.membertext {
+    position: relative;
+    left: 15px;
+    /* background-color: aqua; */
+    display: flex;
+    flex-direction: column;
+}
+
+.membertext span {
+    color: rgb(102, 102, 102);
+    padding: 1px;
+}
+
+.membertext span span {
+    color: black
+}
+
+.brief {
+    top: 10px;
+    position: relative;
+    left: 250px;
+    width: 700px;
+    height: auto;
+    /* background-color: aquamarine; */
+    display: flex;
+    flex-direction: column;
+}
+
+.brief div {
+    height: auto;
+    width: 700px;
+    padding: 15px;
+    padding-left: 0px;
+    padding-bottom: 30px;
+}
+
+.brief h6 {
+    position: relative;
+    font-size: 17px;
+    color: rgb(0, 119, 34);
+    font-weight: bold;
+    font-weight: 400;
+}
+
+#bp {
+    height: auto;
+    width: auto;
+    padding: 10px;
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: space-around;
+}
+
+.pic {
+    top: 10px;
+    position: relative;
+    left: 250px;
+    width: 700px;
+    height: auto;
+    /* background-color: aquamarine; */
+    display: flex;
+    flex-direction: column;
+}
