@@ -84,3 +84,9 @@ func PrintUser(c *gin.Context, u Struct.UserDetail) {
 		"information": u,
 	})
 }
+
+func PrintOriginUser(c *gin.Context, u Struct.OriginUser) {
+	c.JSON(200, gin.H{
+		"information": u,
+	})
+}

@@ -25,7 +25,9 @@ func UserRouter(r *gin.Engine) {
 		engine1.POST("/getDetail", getDT)
 		engine1.POST("/getID", getID)
 		engine1.POST("/changeCap", middleware.Check, changeCap)
+		engine1.POST("/gitLogin", gitLogin)
 	}
+	r.GET("/login", oauthCheck)
 	engine2 := r.Group("/homepage")
 	{
 		engine3 := engine2.Group("/introduce")
@@ -94,8 +96,8 @@ func register(c *gin.Context) {
 		tool.PrintInfo(c, "该账号已经被注册!", false)
 		return
 	}
-	flag2 := service.RegisterUser(db, username, password, secretAnswer, secretQuestion)
-	if !flag2 {
+	err := service.RegisterUser(db, username, password, secretAnswer, secretQuestion)
+	if err != nil {
 		tool.PrintInfo(c, "注册失败！", false)
 		return
 	}
@@ -140,7 +142,7 @@ func showSecret(c *gin.Context) {
 
 // done 检查登录状态
 func done(c *gin.Context) {
-	u := c.MustGet("claims")
+	u, _ := c.Get("claims")
 	tool.PrintInfo(c, u.(*tool.CustomClaim).Name, true)
 }
 
@@ -232,4 +234,23 @@ func changeCap(c *gin.Context) {
 		return
 	}
 	tool.PrintInfo(c, "成功导入", true)
+}
+
+func gitLogin(c *gin.Context) {
+	err := service.GitLogin(service.ClientId)
+	if err != nil {
+		tool.PrintInfo(c, err.Error(), false)
+		return
+	}
+}
+
+func oauthCheck(c *gin.Context) {
+	code := c.Query("code")
+	err := service.OauthCheck(c,code)
+	tool.CheckErr(err)
+	if err != nil {
+		tool.PrintInfo(c,err.Error(),false)
+		return
+	}
+	//tool.PrintOriginUser(c, u)
 }

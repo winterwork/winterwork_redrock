@@ -76,7 +76,6 @@ func CheckUser(db *sql.DB, username string, pwd string) bool {
 	} else {
 		return false
 	}
-
 }
 
 // GetId 获取用户的ID
@@ -131,4 +130,14 @@ func AddCap(db *sql.DB, url string, username string) error {
 	sqlStr := "update user_detail set cap = ? where ID = ?"
 	_,err := db.Exec(sqlStr,url,id)
 	return err
+}
+
+func JudgeGitID(db *sql.DB,id int) bool {
+	sqlStr := "select username from user where GitId = ?"
+	var username string
+	err := db.QueryRow(sqlStr, id).Scan(&username)
+	if err != nil {
+		return false
+	}
+	return true
 }

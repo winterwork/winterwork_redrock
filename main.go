@@ -5,33 +5,28 @@ import (
 	"douban/middleware"
 	"douban/tool"
 	"fmt"
-	"github.com/gin-contrib/cors"
 	"github.com/gin-contrib/static"
 	"github.com/gin-gonic/gin"
 	"net/http"
 )
-
+//e2299bbc41e5bfb23e2fa5c5a13988d05863a4be
 func main() {
 	tool.OpenDb()
 
 	r := gin.Default()
-	
+
 	r.Use(middleware.Cors())
 
-	r.Use(static.Serve("/", static.LocalFile("./static/HTML", false)))
+	r.Use(static.Serve("/", static.LocalFile("./static", false)))
 
 	r.StaticFS("/image", http.Dir("./image"))
 
 	registerRouter(r)
 
-	go func() {
-		err := r.Run(":5500")
-		if err != nil {
-			fmt.Println(err)
-		}
-	}()
-	
-	err := r.Run()
+	err := r.Run(":8080")
+	if err != nil {
+		fmt.Println(err)
+	}
 	if err != nil {
 		fmt.Println(err)
 	}
